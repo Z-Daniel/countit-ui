@@ -1,0 +1,20 @@
+<div class="form-group">
+  <div class="input-group">
+    <input
+      [(ngModel)]="counterName"
+      id="name"
+      placeholder="Enter counter name"
+      type="text"
+      class="form-control"
+    />
+    <div class="input-group-append">
+      <button
+        (click)="create()"
+        class="btn btn-outline-secondary"
+        type="button"
+      >
+        Create counter
+      </button>
+    </div>
+  </div>
+</div>
