@@ -1,4 +1,7 @@
 <div class="counter-creator-content">
   <app-counter-form></app-counter-form>
-  <app-counter-list [counters]="counters$ | async"></app-counter-list>
+  <app-counter-list
+    [counters]="counters$ | async"
+    (incrementCountByOne)="incrementCountByOneListener($event)"
+  ></app-counter-list>
 </div>

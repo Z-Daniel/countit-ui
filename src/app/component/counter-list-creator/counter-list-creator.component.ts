@@ -20,4 +20,9 @@ export class CounterListCreatorComponent implements OnInit {
   ngOnInit(): void {
     this.counterListCreatorStoreService.requestCounters();
   }
+
+  incrementCountByOneListener(counter: Counter): void {
+    counter = { ...counter, count: counter.count + 1 };
+    this.counterListCreatorStoreService.updateCounterRequest(counter);
+  }
 }

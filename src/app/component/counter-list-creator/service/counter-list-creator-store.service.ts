@@ -6,11 +6,13 @@ import { CounterService } from 'src/app/service/counter.service';
 
 interface CounterListCreatorState {
   counters: Counter[];
+  hasError: boolean;
 }
 
 @Injectable()
 export class CounterListCreatorStoreService extends ComponentStore<CounterListCreatorState> {
   readonly counters$ = this.select((state) => state.counters);
+  readonly hasError$ = this.select((state) => state.hasError);
 
   private readonly initializeCounters = this.updater(
     (state, counters: Counter[]) => ({
@@ -23,6 +25,7 @@ export class CounterListCreatorStoreService extends ComponentStore<CounterListCr
     (state, counter: Counter) => ({
       ...state,
       counters: [counter, ...state.counters],
+      hasError: false,
     })
   );
 
@@ -38,9 +41,17 @@ export class CounterListCreatorStoreService extends ComponentStore<CounterListCr
     };
   });
 
+  private readonly updateHasError = this.updater(
+    (state, hasError: boolean) => ({
+      ...state,
+      hasError,
+    })
+  );
+
   constructor(private counterService: CounterService) {
     super({
       counters: [],
+      hasError: false,
     });
   }
 
@@ -63,7 +74,7 @@ export class CounterListCreatorStoreService extends ComponentStore<CounterListCr
         this.counterService.create(counter).pipe(
           tapResponse(
             (response) => this.addCounterToState(response),
-            (error) => console.error(error)
+            (error) => this.updateHasError(true)
           )
         )
       )

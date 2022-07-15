@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Counter } from 'src/app/model/counter.model';
-import { CounterListCreatorStoreService } from '../counter-list-creator/service/counter-list-creator-store.service';
 
 @Component({
   selector: 'app-named-counter',
@@ -9,13 +8,11 @@ import { CounterListCreatorStoreService } from '../counter-list-creator/service/
 })
 export class NamedCounterComponent {
   @Input() counter!: Counter;
+  @Output() incrementCountByOne = new EventEmitter<Counter>();
 
-  constructor(
-    private counterListCreatorStoreService: CounterListCreatorStoreService
-  ) {}
+  constructor() {}
 
-  incrementCount(): void {
-    this.counter = { ...this.counter, count: this.counter.count + 1 };
-    this.counterListCreatorStoreService.updateCounterRequest(this.counter);
+  incrementCountByOneListener(): void {
+    this.incrementCountByOne.emit(this.counter);
   }
 }

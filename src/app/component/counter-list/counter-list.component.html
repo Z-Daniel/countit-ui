@@ -1,3 +1,6 @@
 <ng-container *ngFor="let counter of counters">
-  <app-named-counter [counter]="counter"></app-named-counter>
+  <app-named-counter
+    [counter]="counter"
+    (incrementCountByOne)="incrementCountByOneListener($event)"
+  ></app-named-counter>
 </ng-container>

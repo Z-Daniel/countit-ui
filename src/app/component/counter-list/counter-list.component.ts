@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Counter } from 'src/app/model/counter.model';
 
 @Component({
@@ -8,8 +8,13 @@ import { Counter } from 'src/app/model/counter.model';
 })
 export class CounterListComponent implements OnInit {
   @Input() counters!: Counter[] | null;
+  @Output() incrementCountByOne = new EventEmitter<Counter>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  incrementCountByOneListener(counter: Counter): void {
+    this.incrementCountByOne.emit(counter);
+  }
 }
