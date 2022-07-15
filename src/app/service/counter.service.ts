@@ -19,10 +19,10 @@ export class CounterService {
     return this.baseService.post<Counter>(this.ROOT_PATH, counter);
   }
 
-  update(counter: Counter): Observable<Counter> {
-    return this.baseService.put<Counter>(
-      `${this.ROOT_PATH}/${counter.name}`,
-      counter
+  incrementByOne(counterName: string): Observable<Counter> {
+    return this.baseService.put<Counter, null>(
+      `${this.ROOT_PATH}/${counterName}`,
+      null
     );
   }
 }

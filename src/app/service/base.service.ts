@@ -15,7 +15,7 @@ export class BaseService {
     return this.http.post<T>(url, body);
   }
 
-  put<T>(path: string, body: T): Observable<T> {
+  put<T, B>(path: string, body: B): Observable<T> {
     const url = this.addPathToHost(path);
     return this.http.put<T>(url, body);
   }

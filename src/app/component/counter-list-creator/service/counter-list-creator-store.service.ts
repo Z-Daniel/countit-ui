@@ -81,16 +81,17 @@ export class CounterListCreatorStoreService extends ComponentStore<CounterListCr
     )
   );
 
-  readonly updateCounterRequest = this.effect((counter$: Observable<Counter>) =>
-    counter$.pipe(
-      switchMap((counter: Counter) =>
-        this.counterService.update(counter).pipe(
-          tapResponse(
-            (response) => this.updateCounter(response),
-            (error) => console.error(error)
+  readonly incrementCounterByOne = this.effect(
+    (counterName$: Observable<string>) =>
+      counterName$.pipe(
+        switchMap((counterName: string) =>
+          this.counterService.incrementByOne(counterName).pipe(
+            tapResponse(
+              (response) => this.updateCounter(response),
+              (error) => console.error(error)
+            )
           )
         )
       )
-    )
   );
 }

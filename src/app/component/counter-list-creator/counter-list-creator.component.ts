@@ -22,7 +22,6 @@ export class CounterListCreatorComponent implements OnInit {
   }
 
   incrementCountByOneListener(counter: Counter): void {
-    counter = { ...counter, count: counter.count + 1 };
-    this.counterListCreatorStoreService.updateCounterRequest(counter);
+    this.counterListCreatorStoreService.incrementCounterByOne(counter.name);
   }
 }
